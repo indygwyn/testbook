@@ -3,14 +3,12 @@
 # The Chef InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
-end
-
-# This is an example test, replace it with your own test.
 describe port(80), :skip do
   it { should_not be_listening }
+end
+
+%w{hello world}.each.with_index(1) do |f, i|
+  describe file("/tmp/#{f}.txt") do
+    its("content") { should match(/Index #{i} is #{f}/) }
+  end
 end
